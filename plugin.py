@@ -126,14 +126,14 @@ class Plugin(QGISPluginBase):
         if len(geoms) > 1:
             self.pushMessage(
                 self.tr('Paste geometry'),
-                self.tr('There are many features in clipboard'),
+                self.tr('Fail to paste. Multiple features in the clipboard.'),
                 QGis23MessageBarLevel.Critical
             )
             return
         if len(geoms) == 0:
             self.pushMessage(
                 self.tr('Paste geometry'),
-                self.tr('Nothing to paste. There is no feature in clipboard'),
+                self.tr('Nothing to paste. No features in the clipboard.'),
                 QGis23MessageBarLevel.Critical
             )
             return
@@ -146,8 +146,8 @@ class Plugin(QGISPluginBase):
         if len(selected_features) > 1:
             self.pushMessage(
                 self.tr('Paste geometry'),
-                # 'There are many features selected. Need only one.',
-                self.tr('Multiple features are selected.'),
+                # 'Multiple features selected. Need only one.',
+                self.tr('Multiple features are selected. There should be only one.'),
                 QGis23MessageBarLevel.Critical
             )
             return
@@ -155,7 +155,7 @@ class Plugin(QGISPluginBase):
         if len(selected_features) == 0:
             self.pushMessage(
                 self.tr('Paste geometry'),
-                self.tr('Nothing for paste. There is no one suitable feature'),
+                self.tr('Nowhere to paste. No target feature selected.'),
                 QGis23MessageBarLevel.Critical
             )
             return
@@ -165,7 +165,7 @@ class Plugin(QGISPluginBase):
         if feature.geometry().type() != geom.type():
             self.pushMessage(
                 self.tr('Paste geometry'),
-                self.tr('Attempting to write %s to %s') % (
+                self.tr('Incompatible geometries. Trying to paste %s to %s') % (
                     getGeomtryName(geom.type()),
                     getGeomtryName(feature.geometry().type())
                 ),
@@ -178,14 +178,14 @@ class Plugin(QGISPluginBase):
         if not result:
             self.pushMessage(
                 self.tr('Paste geometry'),
-                self.tr('Something wrong. Cann\'t change geometry'),
+                self.tr('Something is wrong. Can\'t change geometry.'),
                 QGis23MessageBarLevel.Critical
             )
             return
 
         # This is hack. It is not mandatory instruction.
         # But without new features not repaint.
-        # May be i made something wrong above
+        # May be I made something wrong above
         self.iface.mapCanvas().refresh()
 
     def _tryGetFeaturesGeomsFromClipBoard(self):
@@ -205,7 +205,7 @@ class Plugin(QGISPluginBase):
             geom = QgsGeometry.fromWkt(wkt_geom)
 
             if not geom:
-                self.pushLog('Cann\'t create geometry from wkt: %s' % wkt_geom)
+                self.pushLog('Can\'t create geometry from wkt: %s' % wkt_geom)
                 continue
 
             geoms.append(geom)
@@ -232,15 +232,15 @@ class Plugin(QGISPluginBase):
             if len(layer.selectedFeatures()) == 1:
                 is_available = True
             else:
-                msg = self.tr("Select one object!")
+                msg = self.tr("Select a target feature!")
                 is_available = False
         else:
-            msg = self.tr("Start edit vector layer!")
+            msg = self.tr("Start editing a vector layer!")
             is_available = False
 
         if is_available:
             if len(self._tryGetFeaturesGeomsFromClipBoard()) == 0:
-                msg = self.tr("Copy feature with interest geometry!")
+                msg = self.tr("Copy feature with the geometry you need to paste first!")
                 is_available = False
 
         self.paste_geometry_action.setEnabled(is_available)
