@@ -1,0 +1,5 @@
+# python
+*.pyc
+
+# qgis plugin framework
+qpf.py
