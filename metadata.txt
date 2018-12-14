@@ -9,4 +9,8 @@ author = NextGIS
 email = info@nextgis.com
 about = Takes geometry from a feature and pastes it a target feature leaving attributes intact. Contact info@nextgis.com if you're interested in adding something to this plugin.
 icon=icon.svg
-experimental=True
+experimental=Fasle
+
+homepage=https://github.com/nextgis/geometry-paster
+tracker=https://github.com/nextgis/geometry-paster/issues
+repository=https://github.com/nextgis/geometry-paster
