@@ -1,7 +1,7 @@
 [general]
 name = Geometry Paster
-qgisminimumversion = 2.18
-qgismaximumversion = 3.4
+qgisMinimumVersion = 2.18
+qgisMaximumVersion = 3.99
 description = Takes geometry from a feature and pastes it a target feature leaving attributes intact.
 tags=replace, paste, geometry, editing
 version = 0.1.1
