@@ -18,6 +18,7 @@
 import os
 import csv
 import sys
+import ctypes as ct
 
 try:
     # for Python 2.x
@@ -194,6 +195,7 @@ class Plugin(QGISPluginBase):
         if sys.version_info[0] == 2:
             clipboard_text = clipboard_text.encode('utf-8')
 
+        csv.field_size_limit(int(ct.c_ulong(-1).value // 2))
         reader = csv.DictReader(
             StringIO(clipboard_text),
             delimiter='\t'
