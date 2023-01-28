@@ -5,12 +5,12 @@ qgisMaximumVersion = 3.99
 description = Takes geometry from a feature and pastes it a target feature
 about = Takes geometry from a feature and pastes it a target feature leaving attributes intact. Developed by NextGIS. Any feedback is welcome at https://nextgis.com/contact
 tags=replace, paste, geometry, editing
-version = 0.1.1
+version = 0.2
 author = NextGIS
 email = info@nextgis.com
 icon=icon.svg
 experimental=False
 
-homepage=https://github.com/nextgis/geometry-paster
-tracker=https://github.com/nextgis/geometry-paster/issues
-repository=https://github.com/nextgis/geometry-paster
+homepage=https://nextgis.com
+tracker=https://github.com/nextgis/qgis_geometry_paster/issues
+repository=https://github.com/nextgis/qgis_geometry_paster
