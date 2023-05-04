@@ -6,7 +6,7 @@
     <message>
         <location filename="../plugin.py" line="250"/>
         <source>Paste Geometry</source>
-        <translation>COller la géométrie</translation>
+        <translation>Coller la géométrie</translation>
     </message>
     <message>
         <location filename="../plugin.py" line="179"/>
