@@ -6,22 +6,22 @@
     <message>
         <location filename="../plugin.py" line="250"/>
         <source>Paste Geometry</source>
-        <translation>Copier la géométrie</translation>
+        <translation>COller la géométrie</translation>
     </message>
     <message>
         <location filename="../plugin.py" line="179"/>
         <source>Paste geometry</source>
-        <translation>Copier la géométrie</translation>
+        <translation>Coller la géométrie</translation>
     </message>
     <message>
         <location filename="../plugin.py" line="127"/>
         <source>Fail to paste. Multiple features in the clipboard.</source>
-        <translation>Impossible de copier. Plusieurs entités copiées dans le presse-papier.</translation>
+        <translation>Impossible de coller. Plusieurs entités copiées dans le presse-papier.</translation>
     </message>
     <message>
         <location filename="../plugin.py" line="134"/>
         <source>Nothing to paste. No features in the clipboard.</source>
-        <translation>Rien à copier. Pas d&apos;entités dans le presse-papier.</translation>
+        <translation>Rien à coller. Pas d&apos;entités dans le presse-papier.</translation>
     </message>
     <message>
         <location filename="../plugin.py" line="147"/>
@@ -31,12 +31,12 @@
     <message>
         <location filename="../plugin.py" line="156"/>
         <source>Nowhere to paste. No target feature selected.</source>
-        <translation>Nulle part où copier. Pas d&apos;entité cible sélectionnée.</translation>
+        <translation>Nulle part où coller. Pas d&apos;entité cible sélectionnée.</translation>
     </message>
     <message>
         <location filename="../plugin.py" line="166"/>
         <source>Incompatible geometries. Trying to paste %s to %s</source>
-        <translation>Géométries incompatibles. Vous avez essayé de copier %s dans %s</translation>
+        <translation>Géométries incompatibles. Vous avez essayé de coller %s dans %s</translation>
     </message>
     <message>
         <location filename="../plugin.py" line="179"/>
