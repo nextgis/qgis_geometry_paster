@@ -19,6 +19,8 @@ import os
 import csv
 import sys
 
+csv.field_size_limit(sys.maxsize)
+
 try:
     # for Python 2.x
     from StringIO import StringIO
