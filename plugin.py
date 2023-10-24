@@ -20,6 +20,7 @@ from typing import List
 
 from osgeo import ogr
 
+from os import path
 from qgis.PyQt.QtCore import QSettings, QCoreApplication, QTranslator
 from qgis.PyQt.QtGui import QIcon, QKeySequence
 from qgis.PyQt.QtWidgets import QApplication, QAction
@@ -27,6 +28,7 @@ from qgis.PyQt.QtWidgets import QApplication, QAction
 from qgis.core import QgsGeometry, QgsVectorLayer, QgsMessageLog, QgsSettings
 
 from .QGisPluginBase import QGISPluginBase
+from .about_dialog import AboutDialog
 
 from .qgis23 import (
     QGis23MessageLogLevel,
@@ -55,11 +57,12 @@ class Plugin(QGISPluginBase):
     def __init__(self, iface):
         super(Plugin, self).__init__()
         self.iface = iface
+        self.plugin_dir = path.dirname(__file__)
 
         locale = QSettings().value('locale/userLocale')[0:2]
         locale_path = os.path.join(
             self.i18nPath,
-            'plugin_{}.qm'.format(locale)
+            'geometry_paster_{}.qm'.format(locale)
         )
         if os.path.exists(locale_path):
             self.translator = QTranslator()
@@ -67,7 +70,7 @@ class Plugin(QGISPluginBase):
             QCoreApplication.installTranslator(self.translator)
 
     def tr(self, message):
-        return QApplication.translate('Plugin', message)
+        return QApplication.translate(__class__.__name__, message)
 
     def initGui(self):
         self.paste_geometry_action = QAction(
@@ -83,10 +86,13 @@ class Plugin(QGISPluginBase):
         self.paste_geometry_action.setEnabled(False)
         self.paste_geometry_action.triggered.connect(self.pasteGeometry)
 
-        self.iface.editMenu().insertAction(
-            self.iface.actionDeleteSelected(),
-            self.paste_geometry_action,
+        self.action_about = QAction(
+            self.tr('About...'),
+            self.iface.mainWindow()
         )
+        self.action_about.triggered.connect(self.about)
+        self.iface.addPluginToMenu(self.tr("Geometry Paster"), self.paste_geometry_action)
+        self.iface.addPluginToMenu(self.tr("Geometry Paster"), self.action_about)
         self.iface.digitizeToolBar().insertAction(
             self.iface.actionDeleteSelected(),
             self.paste_geometry_action,
@@ -99,6 +105,10 @@ class Plugin(QGISPluginBase):
         self.iface.editMenu().removeAction(
             self.paste_geometry_action
         )
+        self.iface.removePluginMenu(self.tr("Geometry Paster"), self.paste_geometry_action)
+        self.iface.removePluginMenu(self.tr("Geometry Paster"), self.action_about)
+        self.paste_geometry_action.deleteLater()
+        self.action_about.deleteLater()
         self.iface.digitizeToolBar().removeAction(self.paste_geometry_action)
         self.iface.currentLayerChanged.disconnect(self._changeCurrentLayerHandle)
 
@@ -202,6 +212,10 @@ class Plugin(QGISPluginBase):
                 self._checkPasteAvalability
             )
             self._checkPasteAvalability()
+
+    def about(self):
+        dialog = AboutDialog(os.path.basename(self.plugin_dir))
+        dialog.exec_()
 
     def _checkPasteAvalability(self):
         layer = self.iface.activeLayer()
