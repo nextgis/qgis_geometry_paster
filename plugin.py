@@ -18,8 +18,9 @@
 import os
 import csv
 import sys
+import ctypes
 
-csv.field_size_limit(sys.maxsize)
+csv.field_size_limit(int(ctypes.c_ulong(-1).value // 2))
 
 try:
     # for Python 2.x
