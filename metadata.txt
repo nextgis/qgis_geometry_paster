@@ -1,11 +1,13 @@
 [general]
 name = Geometry Paster
-qgisMinimumVersion = 2.18
+qgisMinimumVersion = 3.22
 qgisMaximumVersion = 3.99
 description = Takes geometry from a feature and pastes it a target feature
 description[ru] = Берет геометрию из объекта и вставляет ее в целевой объект.
+description[fr] = On prends la géométrie d'une entité et la colle dans une entité cible
 about = Takes geometry from a feature and pastes it a target feature leaving attributes intact. Developed by NextGIS. Any feedback is welcome at https://nextgis.com/contact
 about[ru] = Берет геометрию объекта и вставляет ее в целевой объект, оставляя атрибуты нетронутыми. Разработан компанией NextGIS. Любые отзывы приветствуются на https://nextgis.com/contact
+about[fr] = On prends la géométrie d'une entité et la colle dans une entité cible en laissant les attributs intacts. Développé par NextGIS. Tout commentaire est le bienvenu à https://nextgis.com/contact
 tags=replace, paste, geometry, editing
 version = 0.2
 author = NextGIS

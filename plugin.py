@@ -85,17 +85,25 @@ class Plugin(QGISPluginBase):
         self.paste_geometry_action.setStatusTip(self.description)
         self.paste_geometry_action.setEnabled(False)
         self.paste_geometry_action.triggered.connect(self.pasteGeometry)
-
-        self.action_about = QAction(
-            self.tr('About...'),
-            self.iface.mainWindow()
+        self.iface.editMenu().insertAction(
+            self.iface.actionDeleteSelected(),
+            self.paste_geometry_action,
         )
-        self.action_about.triggered.connect(self.about)
-        self.iface.addPluginToMenu(self.tr("Geometry Paster"), self.paste_geometry_action)
-        self.iface.addPluginToMenu(self.tr("Geometry Paster"), self.action_about)
         self.iface.digitizeToolBar().insertAction(
             self.iface.actionDeleteSelected(),
             self.paste_geometry_action,
+        )
+        self.iface.addPluginToMenu(
+            self.tr("Geometry Paster"), self.paste_geometry_action
+        )
+
+        self.action_about = QAction(
+            self.tr('About plugin…'),
+            self.iface.mainWindow()
+        )
+        self.action_about.triggered.connect(self.__open_about_dialog)
+        self.iface.addPluginToMenu(
+            self.tr("Geometry Paster"), self.action_about
         )
 
         self.iface.currentLayerChanged.connect(self._changeCurrentLayerHandle)
@@ -106,10 +114,14 @@ class Plugin(QGISPluginBase):
             self.paste_geometry_action
         )
         self.iface.removePluginMenu(self.tr("Geometry Paster"), self.paste_geometry_action)
-        self.iface.removePluginMenu(self.tr("Geometry Paster"), self.action_about)
-        self.paste_geometry_action.deleteLater()
-        self.action_about.deleteLater()
         self.iface.digitizeToolBar().removeAction(self.paste_geometry_action)
+        self.paste_geometry_action.deleteLater()
+        self.paste_geometry_action = None
+
+        self.iface.removePluginMenu(self.tr("Geometry Paster"), self.action_about)
+        self.action_about.deleteLater()
+        self.action_about = None
+
         self.iface.currentLayerChanged.disconnect(self._changeCurrentLayerHandle)
 
     def pushMessage(self, title, message, level=QGis23MessageBarLevel.Info):
@@ -213,7 +225,7 @@ class Plugin(QGISPluginBase):
             )
             self._checkPasteAvalability()
 
-    def about(self):
+    def __open_about_dialog(self):
         dialog = AboutDialog(os.path.basename(self.plugin_dir))
         dialog.exec_()
 
@@ -289,8 +301,6 @@ class Plugin(QGISPluginBase):
         return result
 
     def __parse_geojson(self, content: str) -> List[QgsGeometry]:
-        result: List[QgsGeometry] = []
-
         driver: ogr.Driver = ogr.GetDriverByName('GeoJSON')
         datasource: ogr.DataSource = driver.Open(content)
         if datasource is None:
@@ -299,6 +309,8 @@ class Plugin(QGISPluginBase):
         layer = datasource.GetLayer()
         if layer is None:
             return []
+
+        result: List[QgsGeometry] = []
 
         for feature in layer:
             wkt_content = feature.GetGeometryRef().ExportToWkt()
