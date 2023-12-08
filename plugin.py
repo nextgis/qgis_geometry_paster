@@ -16,22 +16,15 @@
 # This script is main plugin script.
 
 import os
-import csv
-import sys
+from typing import List
 
-csv.field_size_limit(sys.maxsize)
-
-try:
-    # for Python 2.x
-    from StringIO import StringIO
-except ImportError:
-    # for Python 3.x
-    from io import StringIO
+from osgeo import ogr
 
 from qgis.PyQt.QtCore import QSettings, QCoreApplication, QTranslator
 from qgis.PyQt.QtGui import QIcon, QKeySequence
 from qgis.PyQt.QtWidgets import QApplication, QAction
-from qgis.core import QgsGeometry, QgsVectorLayer, QgsMessageLog
+
+from qgis.core import QgsGeometry, QgsVectorLayer, QgsMessageLog, QgsSettings
 
 from .QGisPluginBase import QGISPluginBase
 
@@ -191,27 +184,11 @@ class Plugin(QGISPluginBase):
         self.iface.mapCanvas().refresh()
 
     def _tryGetFeaturesGeomsFromClipBoard(self):
-        cb = QApplication.clipboard()
-        clipboard_text = cb.text()
-        if sys.version_info[0] == 2:
-            clipboard_text = clipboard_text.encode('utf-8')
+        clipboard = QApplication.clipboard()
+        assert clipboard is not None
+        clipboard_text = clipboard.text()
 
-        reader = csv.DictReader(
-            StringIO(clipboard_text),
-            delimiter='\t'
-        )
-
-        geoms = []
-        for row in reader:
-            wkt_geom = row.get('wkt_geom')
-            geom = QgsGeometry.fromWkt(wkt_geom)
-
-            if not geom:
-                self.pushLog('Can\'t create geometry from wkt: %s' % wkt_geom)
-                continue
-
-            geoms.append(geom)
-        return geoms
+        return self.__parse_features_from_cliboard_content(clipboard_text)
 
     def _changeCurrentLayerHandle(self, layer):
         if layer and isinstance(layer, QgsVectorLayer):
@@ -255,3 +232,63 @@ class Plugin(QGISPluginBase):
                     msg
                 )
             )
+
+    def __parse_features_from_cliboard_content(
+        self, content: str
+    ) -> List[QgsGeometry]:
+        AttributesOnly = 'AttributesOnly'
+        AttributesWithWKT = 'AttributesWithWKT'
+        GeoJSON = 'GeoJSON'
+        copy_format = QgsSettings().value(
+            'qgis/copyFeatureFormat', defaultValue=AttributesWithWKT
+        )
+
+        if copy_format == AttributesWithWKT:
+            return self.__parse_csv(content)
+        elif copy_format == GeoJSON:
+            return self.__parse_geojson(content)
+
+        self.pushLog('Copy format error', QGis23MessageLogLevel.Critical)
+
+        return []
+
+    def __parse_csv(self, content: str) -> List[QgsGeometry]:
+        result: List[QgsGeometry] = []
+
+        lines = content.splitlines()
+        if len(lines) == 0:
+            return []
+
+        wkt_index = 0
+        for index, field in enumerate(lines[0].split('\t')):
+            if field != 'wkt_geom':
+                continue
+            wkt_index = index
+            lines = lines[1:]
+            break
+
+        for line in lines:
+            wkt_content = line.split('\t')[wkt_index]
+            geometry = QgsGeometry.fromWkt(wkt_content)
+            result.append(geometry)
+
+        return result
+
+    def __parse_geojson(self, content: str) -> List[QgsGeometry]:
+        result: List[QgsGeometry] = []
+
+        driver: ogr.Driver = ogr.GetDriverByName('GeoJSON')
+        datasource: ogr.DataSource = driver.Open(content)
+        if datasource is None:
+            return []
+
+        layer = datasource.GetLayer()
+        if layer is None:
+            return []
+
+        for feature in layer:
+            wkt_content = feature.GetGeometryRef().ExportToWkt()
+            geometry = QgsGeometry.fromWkt(wkt_content)
+            result.append(geometry)
+
+        return result
