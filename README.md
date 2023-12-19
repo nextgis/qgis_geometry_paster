@@ -11,7 +11,6 @@ QGIS plugins page: https://plugins.qgis.org/plugins/geometry_paster/
 
 ## YouTube
 -------------
-[![k-DZVAh_i18](https://github.com/nextgis/qgis_osminfo/assets/101568545/990640a5-11e7-42f5-838a-fc6f679d7475)](https://youtu.be/k-DZVAh_i18)
 [![NMs5hDf5ndE](https://github.com/nextgis/qgis_geometry_paster/assets/101568545/7d0bca7c-2922-4b3a-aadb-c71724c8b13d)[(https://youtu.be/NMs5hDf5ndE)
 
 License
