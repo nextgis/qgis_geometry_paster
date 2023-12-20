@@ -180,7 +180,7 @@ class Plugin(QGISPluginBase):
         if layer.geometryType() != geom.type():
             self.pushMessage(
                 self.tr('Paste geometry'),
-                self.tr('Incompatible geometries. Trying to paste %s to %s      layer') % (
+                self.tr('Incompatible geometries. Trying to paste %s to %s') % (
                     getGeomtryName(geom.type()),
                     getGeomtryName(layer.geometryType())
                 ),
