@@ -31,7 +31,7 @@
 &lt;/p&gt;</source>
         <translation>&lt;p&gt;{description}&lt;/p&gt;
 &lt;p&gt;{about}&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Разработчики:&lt;/b&gt; &lt;a href=&quot;{main_url}&quot;&gt;{authors}&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Разработчики:&lt;/b&gt; &lt;a href=&quot;{main_url}/{utm}&quot;&gt;{authors}&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;Домашняя страница:&lt;/b&gt; &lt;a href=&quot;{homepage_url}&quot;&gt;{homepage_url}&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;Видео с обзором плагина:&lt;/b&gt; &lt;a href=&quot;{video_url}&quot;&gt;
 {video_url}&lt;/a&gt;&lt;/p&gt;
@@ -48,12 +48,12 @@
 <context>
     <name>Plugin</name>
     <message>
-        <location filename="../plugin.py" line="255"/>
+        <location filename="../plugin.py" line="254"/>
         <source>Paste Geometry</source>
         <translation>Вставить геометрию</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="196"/>
+        <location filename="../plugin.py" line="195"/>
         <source>Paste geometry</source>
         <translation>Вставить геометрию</translation>
     </message>
@@ -78,27 +78,27 @@
         <translation>Некуда вставлять. Не выбран ни один объект.</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="183"/>
+        <location filename="../plugin.py" line="181"/>
         <source>Incompatible geometries. Trying to paste %s to %s</source>
         <translation>Несовместимые геометрии. Попытка вставки %s в %s</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="196"/>
+        <location filename="../plugin.py" line="195"/>
         <source>Something is wrong. Can&apos;t change geometry.</source>
         <translation>Что-то пошло не так. Не удалось изменить геометрию.</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="240"/>
+        <location filename="../plugin.py" line="239"/>
         <source>Select a target feature!</source>
         <translation>Выберите целевой объект!</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="243"/>
+        <location filename="../plugin.py" line="242"/>
         <source>Start editing a vector layer!</source>
         <translation>Начните редактировать целевой слой!</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="248"/>
+        <location filename="../plugin.py" line="247"/>
         <source>Copy feature with the geometry you need to paste first!</source>
         <translation>Сначала скопируйте объект с геометрией которую нужно вставить!</translation>
     </message>

@@ -48,12 +48,12 @@
 <context>
     <name>Plugin</name>
     <message>
-        <location filename="../plugin.py" line="255"/>
+        <location filename="../plugin.py" line="254"/>
         <source>Paste Geometry</source>
         <translation>Coller la géométrie</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="196"/>
+        <location filename="../plugin.py" line="195"/>
         <source>Paste geometry</source>
         <translation>Coller la géométrie</translation>
     </message>
@@ -78,27 +78,27 @@
         <translation>Nulle part où coller. Pas d&apos;entité cible sélectionnée.</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="183"/>
+        <location filename="../plugin.py" line="181"/>
         <source>Incompatible geometries. Trying to paste %s to %s</source>
         <translation>Géométries incompatibles. Vous avez essayé de coller %s dans %s</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="196"/>
+        <location filename="../plugin.py" line="195"/>
         <source>Something is wrong. Can&apos;t change geometry.</source>
         <translation>Il y a un problème. La géométrie ne peut pas être changée.</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="240"/>
+        <location filename="../plugin.py" line="239"/>
         <source>Select a target feature!</source>
         <translation>Sélectionner une entité cible!</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="243"/>
+        <location filename="../plugin.py" line="242"/>
         <source>Start editing a vector layer!</source>
         <translation>Commencez à éditer une couche vecteur!</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="248"/>
+        <location filename="../plugin.py" line="247"/>
         <source>Copy feature with the geometry you need to paste first!</source>
         <translation>Copier l&apos;entité avec la géométrie que vous avez besoin de copier en premier!</translation>
     </message>
