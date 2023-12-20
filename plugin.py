@@ -177,19 +177,18 @@ class Plugin(QGISPluginBase):
             )
             return
 
-        feature = selected_features[0]
-
-        if feature.geometry().type() != geom.type():
+        if layer.geometryType() != geom.type():
             self.pushMessage(
                 self.tr('Paste geometry'),
                 self.tr('Incompatible geometries. Trying to paste %s to %s') % (
                     getGeomtryName(geom.type()),
-                    getGeomtryName(feature.geometry().type())
+                    getGeomtryName(layer.geometryType())
                 ),
                 QGis23MessageBarLevel.Critical
             )
             return
 
+        feature = selected_features[0]
         result = layer.changeGeometry(feature.id(), geom)
 
         if not result:
