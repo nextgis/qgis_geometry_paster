@@ -16,6 +16,7 @@
 # This script is main plugin script.
 
 import os
+import re
 from typing import List
 
 from osgeo import ogr
@@ -280,6 +281,9 @@ class Plugin(QGISPluginBase):
     def __parse_csv(self, content: str) -> List[QgsGeometry]:
         result: List[QgsGeometry] = []
 
+        content = content.replace('\"', "")
+        content = re.sub(r'"[^"]*"', '', content)
+
         lines = content.splitlines()
         if len(lines) == 0:
             return []
@@ -295,7 +299,8 @@ class Plugin(QGISPluginBase):
         for line in lines:
             wkt_content = line.split('\t')[wkt_index]
             geometry = QgsGeometry.fromWkt(wkt_content)
-            result.append(geometry)
+            if geometry.isGeosValid():
+                result.append(geometry)
 
         return result
 

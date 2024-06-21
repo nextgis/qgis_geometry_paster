@@ -9,7 +9,7 @@ about = Takes geometry from a feature and pastes it a target feature leaving att
 about[ru] = Берет геометрию объекта и вставляет ее в целевой объект, оставляя атрибуты нетронутыми. Разработан компанией NextGIS. Любые отзывы приветствуются на https://nextgis.com/contact
 about[fr] = On prends la géométrie d'une entité et la colle dans une entité cible en laissant les attributs intacts. Développé par NextGIS. Tout commentaire est le bienvenu à https://nextgis.com/contact
 tags=replace, paste, geometry, editing
-version = 0.4
+version = 0.5.0
 author = NextGIS
 email = info@nextgis.com
 icon=icon.svg
@@ -23,9 +23,11 @@ video[ru]=https://youtu.be/cWFpY7CjJUM
 
 
 changelog=
-  0.4
+  0.5.0
+    * Fixed pasting features with line separator character in fields content
+  0.4.0
     * Fixed pasting to empty geometry
-  0.3
+  0.3.0
     * Added about dialog
     * Updated translations
     * Bugs fixed
