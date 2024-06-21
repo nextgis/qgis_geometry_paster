@@ -161,15 +161,6 @@ class Plugin(QGISPluginBase):
         layer = self.iface.activeLayer()
         selected_features = layer.selectedFeatures()
 
-        if len(selected_features) > 1:
-            self.pushMessage(
-                self.tr('Paste geometry'),
-                # 'Multiple features selected. Need only one.',
-                self.tr('Multiple features are selected. There should be only one.'),
-                QGis23MessageBarLevel.Critical
-            )
-            return
-
         if len(selected_features) == 0:
             self.pushMessage(
                 self.tr('Paste geometry'),
@@ -189,10 +180,13 @@ class Plugin(QGISPluginBase):
             )
             return
 
-        feature = selected_features[0]
-        result = layer.changeGeometry(feature.id(), geom)
+        result = []
+        layer.beginEditCommand("Paste geometries")
+        for feature in selected_features:
+            result.append(layer.changeGeometry(feature.id(), geom))
+        layer.endEditCommand()
 
-        if not result:
+        if any(not is_success for is_success in result):
             self.pushMessage(
                 self.tr('Paste geometry'),
                 self.tr('Something is wrong. Can\'t change geometry.'),
@@ -234,7 +228,7 @@ class Plugin(QGISPluginBase):
         is_available = False
         if layer and isinstance(layer, QgsVectorLayer) and layer.isEditable():
 
-            if len(layer.selectedFeatures()) == 1:
+            if len(layer.selectedFeatures()) >= 1:
                 is_available = True
             else:
                 msg = self.tr("Select a target feature!")

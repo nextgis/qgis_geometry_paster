@@ -24,6 +24,8 @@ video[ru]=https://youtu.be/cWFpY7CjJUM
 
 changelog=
   0.5.0
+    * Added the ability to insert geometries into multiple features
+    * Added German translation
     * Fixed pasting features with line separator character in fields content
   0.4.0
     * Fixed pasting to empty geometry
