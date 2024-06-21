@@ -26,29 +26,20 @@ from qgis.PyQt.QtCore import QSettings, QCoreApplication, QTranslator
 from qgis.PyQt.QtGui import QIcon, QKeySequence
 from qgis.PyQt.QtWidgets import QApplication, QAction
 
-from qgis.core import QgsGeometry, QgsVectorLayer, QgsMessageLog, QgsSettings
+from qgis.core import QgsGeometry, QgsVectorLayer, QgsMessageLog, QgsSettings, Qgis
 
 from .QGisPluginBase import QGISPluginBase
 from .about_dialog import AboutDialog
-
-from .qgis23 import (
-    QGis23MessageLogLevel,
-    QGis23MessageBarLevel,
-    QGis23GeometryType,
-)
+from .compat import GeometryType
 
 
 def getGeomtryName(geometry_type):
-    if geometry_type == QGis23GeometryType.Point:
+    if geometry_type == GeometryType.Point:
         return 'Point'
-    elif geometry_type == QGis23GeometryType.Line:
+    elif geometry_type == GeometryType.Line:
         return 'Line'
-    elif geometry_type == QGis23GeometryType.Polygon:
+    elif geometry_type == GeometryType.Polygon:
         return 'Polygon'
-    elif geometry_type == QGis23GeometryType.UnknownGeometry:
-        return 'UnknownGeometry'
-    elif geometry_type == QGis23GeometryType.NoGeometry:
-        return 'NoGeometry'
     else:
         return 'Unknown'
 
@@ -125,14 +116,14 @@ class Plugin(QGISPluginBase):
 
         self.iface.currentLayerChanged.disconnect(self._changeCurrentLayerHandle)
 
-    def pushMessage(self, title, message, level=QGis23MessageBarLevel.Info):
+    def pushMessage(self, title, message, level=Qgis.MessageLevel.Info):
         self.iface.messageBar().pushMessage(
             title,
             message,
             level
         )
 
-    def pushLog(self, msg, level=QGis23MessageLogLevel.Info):
+    def pushLog(self, msg, level=Qgis.MessageLevel.Info):
         QgsMessageLog.logMessage(
             msg,
             self.name,
@@ -145,14 +136,14 @@ class Plugin(QGISPluginBase):
             self.pushMessage(
                 self.tr('Paste geometry'),
                 self.tr('Fail to paste. Multiple features in the clipboard.'),
-                QGis23MessageBarLevel.Critical
+                Qgis.MessageLevel.Critical
             )
             return
         if len(geoms) == 0:
             self.pushMessage(
                 self.tr('Paste geometry'),
                 self.tr('Nothing to paste. No features in the clipboard.'),
-                QGis23MessageBarLevel.Critical
+                Qgis.MessageLevel.Critical
             )
             return
 
@@ -165,7 +156,7 @@ class Plugin(QGISPluginBase):
             self.pushMessage(
                 self.tr('Paste geometry'),
                 self.tr('Nowhere to paste. No target feature selected.'),
-                QGis23MessageBarLevel.Critical
+                Qgis.MessageLevel.Critical
             )
             return
 
@@ -176,7 +167,7 @@ class Plugin(QGISPluginBase):
                     getGeomtryName(geom.type()),
                     getGeomtryName(layer.geometryType())
                 ),
-                QGis23MessageBarLevel.Critical
+                Qgis.MessageLevel.Critical
             )
             return
 
@@ -190,7 +181,7 @@ class Plugin(QGISPluginBase):
             self.pushMessage(
                 self.tr('Paste geometry'),
                 self.tr('Something is wrong. Can\'t change geometry.'),
-                QGis23MessageBarLevel.Critical
+                Qgis.MessageLevel.Critical
             )
             return
 
@@ -268,7 +259,7 @@ class Plugin(QGISPluginBase):
         elif copy_format == GeoJSON:
             return self.__parse_geojson(content)
 
-        self.pushLog('Copy format error', QGis23MessageLogLevel.Critical)
+        self.pushLog('Copy format error', Qgis.MessageLevel.Critical)
 
         return []
 
