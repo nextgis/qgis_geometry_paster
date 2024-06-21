@@ -2,6 +2,54 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="de">
 <context>
+    <name>AboutDialog</name>
+    <message>
+        <location filename="../about_dialog.py" line="82"/>
+        <source>Developers</source>
+        <translation>Entwickler</translation>
+    </message>
+    <message>
+        <location filename="../about_dialog.py" line="83"/>
+        <source>Homepage</source>
+        <translation>Homepage</translation>
+    </message>
+    <message>
+        <location filename="../about_dialog.py" line="84"/>
+        <source>Please report bugs at</source>
+        <translation>Fehler bitte im</translation>
+    </message>
+    <message>
+        <location filename="../about_dialog.py" line="87"/>
+        <source>Video with an overview of the plugin</source>
+        <translation>Video mit Überblick über das Plugin</translation>
+    </message>
+    <message>
+        <location filename="../about_dialog.py" line="88"/>
+        <source>Other helpful services by NextGIS</source>
+        <translation>Andere hilfreiche Dienste von NextGIS</translation>
+    </message>
+    <message>
+        <location filename="../about_dialog.py" line="89"/>
+        <source>Convenient up-to-date data extracts for any place in the world</source>
+        <translation>Praktische aktuelle Datenauszüge für jeden Ort der Welt</translation>
+    </message>
+    <message>
+        <location filename="../about_dialog.py" line="92"/>
+        <source>Fully featured Web GIS service</source>
+        <translation>Kompletter Web-GIS-Dienst</translation>
+    </message>
+    <message>
+        <location filename="../about_dialog.py" line="77"/>
+        <source>REPORT_END</source>
+        <translation>melden</translation>
+    </message>
+    <message>
+        <location filename="../about_dialog.py" line="86"/>
+        <source>bugtracker</source>
+        <translation>Bugtracker</translation>
+    </message>
+</context>
+<context>
     <name>AboutDialogBase</name>
     <message>
         <location filename="../about_dialog_base.ui" line="14"/>
@@ -13,102 +61,66 @@
         <source>&lt;p align=&quot;center&quot;&gt;{plugin_name}&lt;/p&gt;</source>
         <translation>&lt;p align=&quot;center&quot;&gt;{plugin_name}&lt;/p&gt;</translation>
     </message>
-    <message>
-        <location filename="../about_dialog_base.ui" line="40"/>
-        <source>&lt;p&gt;{description}&lt;/p&gt;
-&lt;p&gt;{about}&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Developers:&lt;/b&gt; &lt;a href=&quot;{main_url}/{utm}&quot;&gt;{authors}&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Homepage:&lt;/b&gt; &lt;a href=&quot;{homepage_url}&quot;&gt;{homepage_url}&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Video with an overview of the plugin:&lt;/b&gt; &lt;a href=&quot;{video_url}&quot;&gt;
-{video_url}&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Please report bugs at&lt;/b&gt; &lt;a href=&quot;{tracker_url}&quot;&gt;bugtracker&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Other helpful services by NextGIS:
-&lt;ul&gt;&lt;li&gt;&lt;b&gt;Convenient up-to-date data extracts for any place in the world:
-&lt;a href=&quot;{main_url}/{utm}&quot;&gt;{main_url}&lt;/a&gt;&lt;/b&gt;&lt;/li&gt;
-&lt;li&gt;&lt;b&gt;Fully featured Web GIS service:
-&lt;a href=&quot;{main_url}/pricing-base{utm}&quot;&gt;
-{main_url}/pricing-base&lt;/a&gt;&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;
-&lt;/p&gt;</source>
-        <translation>&lt;p&gt;{description}&lt;/p&gt;
-&lt;p&gt;{about}&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Entwickler:&lt;/b&gt; &lt;a href=&quot;{main_url}/{utm}&quot;&gt;{authors}&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Homepage:&lt;/b&gt; &lt;a href=&quot;{homepage_url}&quot;&gt;{homepage_url}&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Video mit Überblick über das Plugin:&lt;/b&gt; &lt;a href=&quot;{video_url}&quot;&gt;
-{video_url}&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Fehler bitte im &lt;/b&gt; &lt;a href=&quot;{tracker_url}&quot;&gt;Bugtracker&lt;/a&gt; melden&lt;/p&gt;
-&lt;p&gt;Andere hilfreiche Dienste von NextGIS:
-&lt;ul&gt;&lt;li&gt;&lt;b&gt;Praktische aktuelle Datenauszüge für jeden Ort der Welt:
-&lt;a href=&quot;{main_url}/{utm}&quot;&gt;{main_url}&lt;/a&gt;&lt;/b&gt;&lt;/li&gt;
-&lt;li&gt;&lt;b&gt;Kompletter Web-GIS-Dienst:
-&lt;a href=&quot;{main_url}/pricing-base{utm}&quot;&gt;
-{main_url}/pricing-base&lt;/a&gt;&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;
-&lt;/p&gt;</translation>
-    </message>
 </context>
 <context>
     <name>Plugin</name>
     <message>
-        <location filename="../plugin.py" line="254"/>
+        <location filename="../plugin.py" line="234"/>
         <source>Paste Geometry</source>
         <translation>Geometrie einfügen</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="195"/>
+        <location filename="../plugin.py" line="179"/>
         <source>Paste geometry</source>
         <translation>Geometrie einfügen</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="144"/>
+        <location filename="../plugin.py" line="133"/>
         <source>Fail to paste. Multiple features in the clipboard.</source>
         <translation>Konnte nicht einfügen: mehrere Objekte in der Zwischenablage.</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="151"/>
+        <location filename="../plugin.py" line="140"/>
         <source>Nothing to paste. No features in the clipboard.</source>
         <translation>Nichts einzufügen:keine Objekte in der Zwischenablage.</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="164"/>
-        <source>Multiple features are selected. There should be only one.</source>
-        <translation>Mehrere Objekte sind ausgewählt. Es sollte nur eines sein.</translation>
-    </message>
-    <message>
-        <location filename="../plugin.py" line="173"/>
+        <location filename="../plugin.py" line="153"/>
         <source>Nowhere to paste. No target feature selected.</source>
         <translation>Kann nirgendwo einfügen. Es ist  kein Zielobjekt ausgewählt.</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="181"/>
+        <location filename="../plugin.py" line="161"/>
         <source>Incompatible geometries. Trying to paste %s to %s</source>
-        <translation>Unverträgliche Geometrien: versuche, %s in %s einzufügen.</translation>
+        <translation>Unverträgliche Geometrien: versuche, %s in %s einzufügen</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="195"/>
+        <location filename="../plugin.py" line="179"/>
         <source>Something is wrong. Can&apos;t change geometry.</source>
         <translation>Es gab ein Problem; kann die Geometrie nicht ändern.</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="239"/>
+        <location filename="../plugin.py" line="217"/>
         <source>Select a target feature!</source>
         <translation>Wähl ein Zielobjekt!</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="242"/>
+        <location filename="../plugin.py" line="220"/>
         <source>Start editing a vector layer!</source>
         <translation>Starte die Bearbeitung eines Vektorlayers!</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="247"/>
+        <location filename="../plugin.py" line="225"/>
         <source>Copy feature with the geometry you need to paste first!</source>
         <translation>Kopier das Objekt mit der Geometrie, die Du benötigst!</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="121"/>
+        <location filename="../plugin.py" line="114"/>
         <source>Geometry Paster</source>
         <translation>Geometrie-Einfüger</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="100"/>
+        <location filename="../plugin.py" line="94"/>
         <source>About plugin…</source>
         <translation>Über das Plugin…</translation>
     </message>
