@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # ***************************************************************************
 # __init__.py  -  Geometry Paster QGIS plugin
 # ---------------------
@@ -18,4 +17,5 @@
 
 def classFactory(iface):
     from .plugin import Plugin
+
     return Plugin(iface)

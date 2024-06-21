@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # ***************************************************************************
 # plugin.py  -  Geometry Paster QGIS plugin
 # ---------------------
@@ -17,44 +16,48 @@
 
 import os
 import re
+from os import path
 from typing import List
 
 from osgeo import ogr
-
-from os import path
-from qgis.PyQt.QtCore import QSettings, QCoreApplication, QTranslator
+from qgis.core import (
+    Qgis,
+    QgsGeometry,
+    QgsMessageLog,
+    QgsSettings,
+    QgsVectorLayer,
+)
+from qgis.PyQt.QtCore import QCoreApplication, QSettings, QTranslator
 from qgis.PyQt.QtGui import QIcon, QKeySequence
-from qgis.PyQt.QtWidgets import QApplication, QAction
+from qgis.PyQt.QtWidgets import QAction, QApplication
 
-from qgis.core import QgsGeometry, QgsVectorLayer, QgsMessageLog, QgsSettings, Qgis
-
-from .QGisPluginBase import QGISPluginBase
 from .about_dialog import AboutDialog
 from .compat import GeometryType
+from .QGisPluginBase import QGISPluginBase
 
 
 def getGeomtryName(geometry_type):
     if geometry_type == GeometryType.Point:
-        return 'Point'
+        return "Point"
     elif geometry_type == GeometryType.Line:
-        return 'Line'
+        return "Line"
     elif geometry_type == GeometryType.Polygon:
-        return 'Polygon'
+        return "Polygon"
     else:
-        return 'Unknown'
+        return "Unknown"
 
 
 class Plugin(QGISPluginBase):
     """docstring for Plugin"""
+
     def __init__(self, iface):
-        super(Plugin, self).__init__()
+        super().__init__()
         self.iface = iface
         self.plugin_dir = path.dirname(__file__)
 
-        locale = QSettings().value('locale/userLocale')[0:2]
+        locale = QSettings().value("locale/userLocale")[0:2]
         locale_path = os.path.join(
-            self.i18nPath,
-            'geometry_paster_{}.qm'.format(locale)
+            self.i18nPath, f"geometry_paster_{locale}.qm"
         )
         if os.path.exists(locale_path):
             self.translator = QTranslator()
@@ -66,14 +69,13 @@ class Plugin(QGISPluginBase):
 
     def initGui(self):
         self.paste_geometry_action = QAction(
-            self.tr('Paste Geometry'),
-            self.iface.mainWindow()
+            self.tr("Paste Geometry"), self.iface.mainWindow()
         )
         self.paste_geometry_action.setIcon(
-            QIcon(os.path.join(self.dir, 'icon.svg'))
+            QIcon(os.path.join(self.dir, "icon.svg"))
         )
-        self.paste_geometry_action.setShortcut(QKeySequence('Ctrl+Shift+G'))
-        self.paste_geometry_action.setToolTip(self.tr('Paste Geometry'))
+        self.paste_geometry_action.setShortcut(QKeySequence("Ctrl+Shift+G"))
+        self.paste_geometry_action.setToolTip(self.tr("Paste Geometry"))
         self.paste_geometry_action.setStatusTip(self.description)
         self.paste_geometry_action.setEnabled(False)
         self.paste_geometry_action.triggered.connect(self.pasteGeometry)
@@ -90,8 +92,7 @@ class Plugin(QGISPluginBase):
         )
 
         self.action_about = QAction(
-            self.tr('About plugin…'),
-            self.iface.mainWindow()
+            self.tr("About plugin…"), self.iface.mainWindow()
         )
         self.action_about.triggered.connect(self.__open_about_dialog)
         self.iface.addPluginToMenu(
@@ -102,48 +103,44 @@ class Plugin(QGISPluginBase):
         self._changeCurrentLayerHandle(self.iface.activeLayer())
 
     def unload(self):
-        self.iface.editMenu().removeAction(
-            self.paste_geometry_action
+        self.iface.editMenu().removeAction(self.paste_geometry_action)
+        self.iface.removePluginMenu(
+            self.tr("Geometry Paster"), self.paste_geometry_action
         )
-        self.iface.removePluginMenu(self.tr("Geometry Paster"), self.paste_geometry_action)
         self.iface.digitizeToolBar().removeAction(self.paste_geometry_action)
         self.paste_geometry_action.deleteLater()
         self.paste_geometry_action = None
 
-        self.iface.removePluginMenu(self.tr("Geometry Paster"), self.action_about)
+        self.iface.removePluginMenu(
+            self.tr("Geometry Paster"), self.action_about
+        )
         self.action_about.deleteLater()
         self.action_about = None
 
-        self.iface.currentLayerChanged.disconnect(self._changeCurrentLayerHandle)
+        self.iface.currentLayerChanged.disconnect(
+            self._changeCurrentLayerHandle
+        )
 
     def pushMessage(self, title, message, level=Qgis.MessageLevel.Info):
-        self.iface.messageBar().pushMessage(
-            title,
-            message,
-            level
-        )
+        self.iface.messageBar().pushMessage(title, message, level)
 
     def pushLog(self, msg, level=Qgis.MessageLevel.Info):
-        QgsMessageLog.logMessage(
-            msg,
-            self.name,
-            level
-        )
+        QgsMessageLog.logMessage(msg, self.name, level)
 
     def pasteGeometry(self):
         geoms = self._tryGetFeaturesGeomsFromClipBoard()
         if len(geoms) > 1:
             self.pushMessage(
-                self.tr('Paste geometry'),
-                self.tr('Fail to paste. Multiple features in the clipboard.'),
-                Qgis.MessageLevel.Critical
+                self.tr("Paste geometry"),
+                self.tr("Fail to paste. Multiple features in the clipboard."),
+                Qgis.MessageLevel.Critical,
             )
             return
         if len(geoms) == 0:
             self.pushMessage(
-                self.tr('Paste geometry'),
-                self.tr('Nothing to paste. No features in the clipboard.'),
-                Qgis.MessageLevel.Critical
+                self.tr("Paste geometry"),
+                self.tr("Nothing to paste. No features in the clipboard."),
+                Qgis.MessageLevel.Critical,
             )
             return
 
@@ -154,20 +151,21 @@ class Plugin(QGISPluginBase):
 
         if len(selected_features) == 0:
             self.pushMessage(
-                self.tr('Paste geometry'),
-                self.tr('Nowhere to paste. No target feature selected.'),
-                Qgis.MessageLevel.Critical
+                self.tr("Paste geometry"),
+                self.tr("Nowhere to paste. No target feature selected."),
+                Qgis.MessageLevel.Critical,
             )
             return
 
         if layer.geometryType() != geom.type():
             self.pushMessage(
-                self.tr('Paste geometry'),
-                self.tr('Incompatible geometries. Trying to paste %s to %s') % (
+                self.tr("Paste geometry"),
+                self.tr("Incompatible geometries. Trying to paste %s to %s")
+                % (
                     getGeomtryName(geom.type()),
-                    getGeomtryName(layer.geometryType())
+                    getGeomtryName(layer.geometryType()),
                 ),
-                Qgis.MessageLevel.Critical
+                Qgis.MessageLevel.Critical,
             )
             return
 
@@ -179,9 +177,9 @@ class Plugin(QGISPluginBase):
 
         if any(not is_success for is_success in result):
             self.pushMessage(
-                self.tr('Paste geometry'),
-                self.tr('Something is wrong. Can\'t change geometry.'),
-                Qgis.MessageLevel.Critical
+                self.tr("Paste geometry"),
+                self.tr("Something is wrong. Can't change geometry."),
+                Qgis.MessageLevel.Critical,
             )
             return
 
@@ -199,15 +197,9 @@ class Plugin(QGISPluginBase):
 
     def _changeCurrentLayerHandle(self, layer):
         if layer and isinstance(layer, QgsVectorLayer):
-            layer.selectionChanged.connect(
-                self._checkPasteAvalability
-            )
-            layer.editingStarted.connect(
-                self._checkPasteAvalability
-            )
-            layer.editingStopped.connect(
-                self._checkPasteAvalability
-            )
+            layer.selectionChanged.connect(self._checkPasteAvalability)
+            layer.editingStarted.connect(self._checkPasteAvalability)
+            layer.editingStopped.connect(self._checkPasteAvalability)
             self._checkPasteAvalability()
 
     def __open_about_dialog(self):
@@ -217,8 +209,8 @@ class Plugin(QGISPluginBase):
     def _checkPasteAvalability(self):
         layer = self.iface.activeLayer()
         is_available = False
+        msg = ""
         if layer and isinstance(layer, QgsVectorLayer) and layer.isEditable():
-
             if len(layer.selectedFeatures()) >= 1:
                 is_available = True
             else:
@@ -230,28 +222,27 @@ class Plugin(QGISPluginBase):
 
         if is_available:
             if len(self._tryGetFeaturesGeomsFromClipBoard()) == 0:
-                msg = self.tr("Copy feature with the geometry you need to paste first!")
+                msg = self.tr(
+                    "Copy feature with the geometry you need to paste first!"
+                )
                 is_available = False
 
         self.paste_geometry_action.setEnabled(is_available)
         if is_available:
-            self.paste_geometry_action.setToolTip(self.tr('Paste Geometry'))
+            self.paste_geometry_action.setToolTip(self.tr("Paste Geometry"))
         else:
             self.paste_geometry_action.setToolTip(
-                "%s. %s" % (
-                    self.tr('Paste Geometry'),
-                    msg
-                )
+                "{}. {}".format(self.tr("Paste Geometry"), msg)
             )
 
     def __parse_features_from_cliboard_content(
         self, content: str
     ) -> List[QgsGeometry]:
-        AttributesOnly = 'AttributesOnly'
-        AttributesWithWKT = 'AttributesWithWKT'
-        GeoJSON = 'GeoJSON'
+        # AttributesOnly = "AttributesOnly"
+        AttributesWithWKT = "AttributesWithWKT"
+        GeoJSON = "GeoJSON"
         copy_format = QgsSettings().value(
-            'qgis/copyFeatureFormat', defaultValue=AttributesWithWKT
+            "qgis/copyFeatureFormat", defaultValue=AttributesWithWKT
         )
 
         if copy_format == AttributesWithWKT:
@@ -259,30 +250,30 @@ class Plugin(QGISPluginBase):
         elif copy_format == GeoJSON:
             return self.__parse_geojson(content)
 
-        self.pushLog('Copy format error', Qgis.MessageLevel.Critical)
+        self.pushLog("Copy format error", Qgis.MessageLevel.Critical)
 
         return []
 
     def __parse_csv(self, content: str) -> List[QgsGeometry]:
         result: List[QgsGeometry] = []
 
-        content = content.replace('\"', "")
-        content = re.sub(r'"[^"]*"', '', content)
+        content = content.replace('"', "")
+        content = re.sub(r'"[^"]*"', "", content)
 
         lines = content.splitlines()
         if len(lines) == 0:
             return []
 
         wkt_index = 0
-        for index, field in enumerate(lines[0].split('\t')):
-            if field != 'wkt_geom':
+        for index, field in enumerate(lines[0].split("\t")):
+            if field != "wkt_geom":
                 continue
             wkt_index = index
             lines = lines[1:]
             break
 
         for line in lines:
-            wkt_content = line.split('\t')[wkt_index]
+            wkt_content = line.split("\t")[wkt_index]
             geometry = QgsGeometry.fromWkt(wkt_content)
             if geometry.isGeosValid():
                 result.append(geometry)
@@ -290,7 +281,7 @@ class Plugin(QGISPluginBase):
         return result
 
     def __parse_geojson(self, content: str) -> List[QgsGeometry]:
-        driver: ogr.Driver = ogr.GetDriverByName('GeoJSON')
+        driver: ogr.Driver = ogr.GetDriverByName("GeoJSON")
         datasource: ogr.DataSource = driver.Open(content)
         if datasource is None:
             return []

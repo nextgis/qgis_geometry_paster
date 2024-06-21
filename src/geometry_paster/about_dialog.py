@@ -78,7 +78,7 @@ class AboutDialog(QDialog, FORM_CLASS):
             "video_title": self.tr("Video with an overview of the plugin"),
             "services_title": self.tr("Other helpful services by NextGIS"),
             "extracts_title": self.tr(
-                "Convenient up-to-date data extracts for any place in the world"  # noqa: E501
+                "Convenient up-to-date data extracts for any place in the world"
             ),
             "webgis_title": self.tr("Fully featured Web GIS service"),
         }
@@ -89,10 +89,10 @@ class AboutDialog(QDialog, FORM_CLASS):
             <p><b>{developers_title}:</b> <a href="{main_url}/{utm}">{authors}</a></p>
             <p><b>{homepage_title}:</b> <a href="{homepage_url}">{homepage_url}</a></p>
             <p><b>{report_title}</b> <a href="{tracker_url}">{bugtracker_title}</a></p>
-            """  # noqa: E501
+            """
 
         if metadata.get("video_url") is not None:
-            description += '<p><b>{video_title}:</b> <a href="{video_url}">{video_url}</a></p>'  # noqa: E501
+            description += '<p><b>{video_title}:</b> <a href="{video_url}">{video_url}</a></p>'
 
         services = """
             <p>
