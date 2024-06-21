@@ -1,14 +1,14 @@
-import os
+from pathlib import Path
 from typing import Dict, Optional
 
-from qgis.PyQt.QtCore import QLocale
-from qgis.PyQt.QtWidgets import QWidget, QDialog
-from qgis.PyQt import uic
 from qgis.core import QgsSettings
+from qgis.PyQt import uic
+from qgis.PyQt.QtCore import QLocale
+from qgis.PyQt.QtWidgets import QDialog, QWidget
 from qgis.utils import pluginMetadata
 
 FORM_CLASS, _ = uic.loadUiType(
-    os.path.join(os.path.dirname(__file__), "about_dialog_base.ui")
+    str(Path(__file__).parent / "about_dialog_base.ui")
 )
 
 
@@ -18,21 +18,15 @@ class AboutDialog(QDialog, FORM_CLASS):
         self.setupUi(self)
         self.__package_name = package_name
 
-        replacemens = self.__replacemens()
-        self.pluginName.setText(self.pluginName.text().replace(
-            "{plugin_name}", replacemens["{plugin_name}"])
-        )
-        self.setWindowTitle(self.windowTitle().format(
-            plugin_name=replacemens["{plugin_name}"]
-        ))
-        html = self.textBrowser.toHtml()
-        for key, value in replacemens.items():
-            html = html.replace(key, value)
-        self.textBrowser.setHtml(html)
+        metadata = self.__metadata()
+
+        self.pluginName.setText(self.pluginName.text().format_map(metadata))
+        self.setWindowTitle(self.windowTitle().format_map(metadata))
+        self.textBrowser.setHtml(self.__html(metadata))
 
     def __locale(self) -> str:
         override_locale = QgsSettings().value(
-            "locale/overrideFlag", False, type=bool
+            "locale/overrideFlag", defaultValue=False, type=bool
         )
         if not override_locale:
             locale_full_name = QLocale.system().name()
@@ -41,30 +35,77 @@ class AboutDialog(QDialog, FORM_CLASS):
 
         return locale_full_name[0:2]
 
-    def __replacemens(self) -> Dict[str, str]:
+    def __metadata(self) -> Dict[str, Optional[str]]:
         locale = self.__locale()
         is_ru = locale in ["ru", "uk"]
 
-        def metadata_value(key: str) -> str:
+        def metadata_value(key: str) -> Optional[str]:
             value = pluginMetadata(self.__package_name, f"{key}[{locale}]")
-            if value == '__error__':
+            if value == "__error__":
                 value = pluginMetadata(self.__package_name, key)
+            if value == "__error__":
+                value = None
             return value
 
         about = metadata_value("about")
+        assert about is not None
         about_stop_phrase = "Разработан компанией" if is_ru else "Developed by"
         if about.find(about_stop_phrase) > 0:
-            about = about[:about.find(about_stop_phrase)]
+            about = about[: about.find(about_stop_phrase)]
+
+        url = f"https://nextgis.{'ru' if is_ru else 'com'}"
 
         return {
-            "{plugin_name}": metadata_value("name"),
-            "{description}": metadata_value("description"),
-            "{about}": about,
-            "{authors}": metadata_value("author"),
-            "{video_url}": metadata_value("video"),
-            "{homepage_url}": metadata_value("repository"),
-            "{tracker_url}": metadata_value("tracker"),
-            "{main_url}": f"https://nextgis.{'ru' if is_ru else 'com'}",
-            "{utm}": "?utm_source=qgis_plugin&utm_medium=about&utm_campaign="
-                     + self.__package_name
+            "plugin_name": metadata_value("name"),
+            "description": metadata_value("description"),
+            "about": about,
+            "authors": metadata_value("author"),
+            "video_url": metadata_value("video"),
+            "homepage_url": metadata_value("repository"),
+            "tracker_url": metadata_value("tracker"),
+            "main_url": url,
+            "data_url": url.replace("://", "://data."),
+            "utm": "?utm_source=qgis_plugin&utm_medium=about&utm_campaign="
+            + self.__package_name,
         }
+
+    def __html(self, metadata: Dict[str, Optional[str]]) -> str:
+        titles = {
+            "developers_title": self.tr("Developers"),
+            "homepage_title": self.tr("Homepage"),
+            "report_title": self.tr("Please report bugs at"),
+            "bugtracker_title": self.tr("bugracker"),
+            "video_title": self.tr("Video with an overview of the plugin"),
+            "services_title": self.tr("Other helpful services by NextGIS"),
+            "extracts_title": self.tr(
+                "Convenient up-to-date data extracts for any place in the world"  # noqa: E501
+            ),
+            "webgis_title": self.tr("Fully featured Web GIS service"),
+        }
+
+        description = """
+            <p>{description}</p>
+            <p>{about}</p>
+            <p><b>{developers_title}:</b> <a href="{main_url}/{utm}">{authors}</a></p>
+            <p><b>{homepage_title}:</b> <a href="{homepage_url}">{homepage_url}</a></p>
+            <p><b>{report_title}</b> <a href="{tracker_url}">{bugtracker_title}</a></p>
+            """  # noqa: E501
+
+        if metadata.get("video_url") is not None:
+            description += '<p><b>{video_title}:</b> <a href="{video_url}">{video_url}</a></p>'  # noqa: E501
+
+        services = """
+            <p>
+            {services_title}:
+            <ul>
+              <li><b>{extracts_title}</b>: <a href="{data_url}/{utm}">{data_url}</a></li>
+              <li><b>{webgis_title}</b>: <a href="{main_url}/nextgis-com/plans{utm}">{main_url}/nextgis-com/plans</a></li>
+            </ul>
+            </p>
+            """
+
+        replacements = dict()
+        replacements.update(titles)
+        replacements.update(metadata)
+
+        return (description + services).format_map(replacements)
