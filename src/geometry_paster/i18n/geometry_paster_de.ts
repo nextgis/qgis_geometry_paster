@@ -87,7 +87,7 @@
     <message>
         <location filename="../plugin.py" line="153"/>
         <source>Nowhere to paste. No target feature selected.</source>
-        <translation>Kann nirgendwo einfügen. Es ist  kein Zielobjekt ausgewählt.</translation>
+        <translation>Kann nirgendwo einfügen. Es ist kein Zielobjekt ausgewählt.</translation>
     </message>
     <message>
         <location filename="../plugin.py" line="161"/>
