@@ -41,7 +41,7 @@
     <message>
         <location filename="../about_dialog.py" line="77"/>
         <source>REPORT_END</source>
-        <translation>REPORT_END</translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../about_dialog.py" line="86"/>
