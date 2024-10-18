@@ -204,7 +204,7 @@ class Plugin(QGISPluginBase):
 
     def __open_about_dialog(self):
         dialog = AboutDialog(os.path.basename(self.plugin_dir))
-        dialog.exec_()
+        dialog.exec()
 
     def _checkPasteAvalability(self):
         layer = self.iface.activeLayer()
