@@ -8,7 +8,7 @@ from qgis.PyQt.QtWidgets import QDialog, QWidget
 from qgis.utils import pluginMetadata
 
 FORM_CLASS, _ = uic.loadUiType(
-    str(Path(__file__).parent / "about_dialog_base.ui")
+    str(Path(__file__).parent / "ui/about_dialog_base.ui")
 )
 
 

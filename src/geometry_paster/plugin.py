@@ -72,7 +72,7 @@ class Plugin(QGISPluginBase):
             self.tr("Paste Geometry"), self.iface.mainWindow()
         )
         self.paste_geometry_action.setIcon(
-            QIcon(os.path.join(self.dir, "icon.svg"))
+            QIcon(os.path.join(self.dir, "icons/icon.svg"))
         )
         self.paste_geometry_action.setShortcut(QKeySequence("Ctrl+Shift+G"))
         self.paste_geometry_action.setToolTip(self.tr("Paste Geometry"))
