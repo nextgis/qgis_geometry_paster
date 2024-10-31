@@ -72,7 +72,7 @@ class Plugin(QGISPluginBase):
             self.tr("Paste Geometry"), self.iface.mainWindow()
         )
         self.paste_geometry_action.setIcon(
-            QIcon(os.path.join(self.dir, "icon.svg"))
+            QIcon(os.path.join(self.dir, "icons/icon.svg"))
         )
         self.paste_geometry_action.setShortcut(QKeySequence("Ctrl+Shift+G"))
         self.paste_geometry_action.setToolTip(self.tr("Paste Geometry"))
@@ -204,7 +204,7 @@ class Plugin(QGISPluginBase):
 
     def __open_about_dialog(self):
         dialog = AboutDialog(os.path.basename(self.plugin_dir))
-        dialog.exec_()
+        dialog.exec()
 
     def _checkPasteAvalability(self):
         layer = self.iface.activeLayer()
