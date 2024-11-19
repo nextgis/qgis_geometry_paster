@@ -99,6 +99,15 @@ class Plugin(QGISPluginBase):
             self.tr("Geometry Paster"), self.action_about
         )
 
+        self.__show_help_action = QAction(
+            QIcon(os.path.join(self.dir, "icons/icon.svg")),
+            "Geometry Paster",
+        )
+        self.__show_help_action.triggered.connect(self.__open_about_dialog)
+        plugin_help_menu = self.iface.pluginHelpMenu()
+        assert plugin_help_menu is not None
+        plugin_help_menu.addAction(self.__show_help_action)
+
         self.iface.currentLayerChanged.connect(self._changeCurrentLayerHandle)
         self._changeCurrentLayerHandle(self.iface.activeLayer())
 
