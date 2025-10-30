@@ -16,6 +16,6 @@
 
 
 def classFactory(iface):
-    from .plugin import Plugin
+    from .geometry_paster_plugin import GeometryPasterPlugin
 
-    return Plugin(iface)
+    return GeometryPasterPlugin(iface)
