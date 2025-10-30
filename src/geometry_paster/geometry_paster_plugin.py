@@ -19,9 +19,10 @@ import re
 from os import path
 from typing import List
 
-from osgeo import ogr
+from osgeo import gdal, ogr
 from qgis.core import (
     Qgis,
+    QgsApplication,
     QgsGeometry,
     QgsMessageLog,
     QgsSettings,
@@ -47,7 +48,7 @@ def getGeomtryName(geometry_type):
         return "Unknown"
 
 
-class Plugin(QGISPluginBase):
+class GeometryPasterPlugin(QGISPluginBase):
     """docstring for Plugin"""
 
     def __init__(self, iface):
@@ -92,7 +93,9 @@ class Plugin(QGISPluginBase):
         )
 
         self.action_about = QAction(
-            self.tr("About plugin…"), self.iface.mainWindow()
+            QgsApplication.getThemeIcon("mActionPropertiesWidget.svg"),
+            self.tr("About plugin…"),
+            self.iface.mainWindow()
         )
         self.action_about.triggered.connect(self.__open_about_dialog)
         self.iface.addPluginToMenu(
@@ -290,8 +293,8 @@ class Plugin(QGISPluginBase):
         return result
 
     def __parse_geojson(self, content: str) -> List[QgsGeometry]:
-        driver: ogr.Driver = ogr.GetDriverByName("GeoJSON")
-        datasource: ogr.DataSource = driver.Open(content)
+        driver: gdal.Driver = ogr.GetDriverByName("GeoJSON")
+        datasource: gdal.Dataset = driver.Open(content)
         if datasource is None:
             return []
 

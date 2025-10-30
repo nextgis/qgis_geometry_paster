@@ -1,18 +1,26 @@
 from enum import IntEnum
+from importlib.util import find_spec
 from pathlib import Path
 from typing import Dict, Optional
 
 from qgis.core import QgsSettings
 from qgis.PyQt import uic
-from qgis.PyQt.QtCore import QFile, QLocale, QSize, Qt, QUrl
+from qgis.PyQt.QtCore import QT_VERSION_STR, QFile, QLocale, QSize, Qt, QUrl
 from qgis.PyQt.QtGui import QDesktopServices, QIcon, QPixmap
-from qgis.PyQt.QtSvg import QSvgWidget
 from qgis.PyQt.QtWidgets import QDialog, QLabel, QWidget
 from qgis.utils import pluginMetadata
 
 FORM_CLASS, _ = uic.loadUiType(
     str(Path(__file__).parent / "ui" / "about_dialog_base.ui")
 )
+
+QT_MAJOR_VERSION = int(QT_VERSION_STR.split(".")[0])
+if QT_MAJOR_VERSION < 6:
+    from qgis.PyQt.QtSvg import QSvgWidget
+elif find_spec("qgis.PyQt.QtSvgWidgets"):
+    from qgis.PyQt.QtSvgWidgets import QSvgWidget
+else:
+    from PyQt6.QtSvgWidgets import QSvgWidget
 
 
 class AboutTab(IntEnum):
