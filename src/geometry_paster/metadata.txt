@@ -20,6 +20,8 @@ icon=icons/icon.svg
 experimental=False
 supportsQt6 = True
 
+user_guide=https://docs.nextgis.com/docs_ngqgis/source/geom_paster.html
+user_guide[ru]=https://docs.nextgis.ru/docs_ngqgis/source/geom_paster.html
 homepage=https://nextgis.com
 tracker=https://github.com/nextgis/qgis_geometry_paster/issues
 repository=https://github.com/nextgis/qgis_geometry_paster
