@@ -33,6 +33,7 @@ changelog=
   1.3.0
     * Updated maximum QGIS version to 4.99
     * Added support for Qt6
+    * Added geometry transformation when copying features in GeoJSON format
   1.2.0
     * Updated the "About plugin" dialog
     * Added plugin item to help menu
