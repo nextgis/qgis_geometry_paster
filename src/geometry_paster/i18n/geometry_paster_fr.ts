@@ -4,54 +4,59 @@
 <context>
     <name>AboutDialog</name>
     <message>
-        <location filename="../about_dialog.py" line="189"/>
+        <location filename="../about_dialog.py" line="236"/>
         <source>Developers</source>
         <translation>Développeurs</translation>
     </message>
     <message>
-        <location filename="../about_dialog.py" line="190"/>
+        <location filename="../about_dialog.py" line="237"/>
         <source>Homepage</source>
         <translation>Page d&apos;accueil</translation>
     </message>
     <message>
-        <location filename="../about_dialog.py" line="191"/>
+        <location filename="../about_dialog.py" line="239"/>
         <source>Please report bugs at</source>
         <translation>Veuillez signaler les bogues à</translation>
     </message>
     <message>
-        <location filename="../about_dialog.py" line="194"/>
+        <location filename="../about_dialog.py" line="242"/>
         <source>Video with an overview of the plugin</source>
         <translation>Vidéo avec un aperçu du plugin</translation>
     </message>
     <message>
-        <location filename="../about_dialog.py" line="195"/>
+        <location filename="../about_dialog.py" line="243"/>
         <source>Other helpful services by NextGIS</source>
         <translation>Autres services utiles de NextGIS</translation>
     </message>
     <message>
-        <location filename="../about_dialog.py" line="196"/>
+        <location filename="../about_dialog.py" line="244"/>
         <source>Convenient up-to-date data extracts for any place in the world</source>
         <translation>Des extraits de données pratiques et actualisés pour tous lieux dans le monde</translation>
     </message>
     <message>
-        <location filename="../about_dialog.py" line="199"/>
+        <location filename="../about_dialog.py" line="247"/>
         <source>Fully featured Web GIS service</source>
         <translation>Service SIG Web entièrement équipé</translation>
     </message>
     <message>
-        <location filename="../about_dialog.py" line="184"/>
+        <location filename="../about_dialog.py" line="231"/>
         <source>REPORT_END</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../about_dialog.py" line="193"/>
+        <location filename="../about_dialog.py" line="241"/>
         <source>bugtracker</source>
         <translation>traqueur de bogues</translation>
     </message>
     <message>
-        <location filename="../about_dialog.py" line="46"/>
+        <location filename="../about_dialog.py" line="92"/>
         <source> by NextGIS</source>
         <translation> par NextGIS</translation>
+    </message>
+    <message>
+        <location filename="../about_dialog.py" line="238"/>
+        <source>User Guide</source>
+        <translation>Guide de l&apos;utilisateur</translation>
     </message>
 </context>
 <context>
@@ -107,66 +112,66 @@ p, li { white-space: pre-wrap; }
     </message>
 </context>
 <context>
-    <name>Plugin</name>
+    <name>GeometryPasterPlugin</name>
     <message>
-        <location filename="../plugin.py" line="243"/>
+        <location filename="../geometry_paster_plugin.py" line="249"/>
         <source>Paste Geometry</source>
         <translation>Coller la géométrie</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="188"/>
-        <source>Paste geometry</source>
-        <translation>Coller la géométrie</translation>
-    </message>
-    <message>
-        <location filename="../plugin.py" line="142"/>
-        <source>Fail to paste. Multiple features in the clipboard.</source>
-        <translation>Impossible de coller. Plusieurs entités copiées dans le presse-papier.</translation>
-    </message>
-    <message>
-        <location filename="../plugin.py" line="149"/>
-        <source>Nothing to paste. No features in the clipboard.</source>
-        <translation>Rien à coller. Pas d&apos;entités dans le presse-papier.</translation>
-    </message>
-    <message>
-        <location filename="../plugin.py" line="162"/>
-        <source>Nowhere to paste. No target feature selected.</source>
-        <translation>Nulle part où coller. Pas d&apos;entité cible sélectionnée.</translation>
-    </message>
-    <message>
-        <location filename="../plugin.py" line="170"/>
-        <source>Incompatible geometries. Trying to paste %s to %s</source>
-        <translation>Géométries incompatibles. Vous avez essayé de coller %s dans %s</translation>
-    </message>
-    <message>
-        <location filename="../plugin.py" line="188"/>
-        <source>Something is wrong. Can&apos;t change geometry.</source>
-        <translation>Il y a un problème. La géométrie ne peut pas être changée.</translation>
-    </message>
-    <message>
-        <location filename="../plugin.py" line="226"/>
-        <source>Select a target feature!</source>
-        <translation>Sélectionner une entité cible!</translation>
-    </message>
-    <message>
-        <location filename="../plugin.py" line="229"/>
-        <source>Start editing a vector layer!</source>
-        <translation>Commencez à éditer une couche vecteur!</translation>
-    </message>
-    <message>
-        <location filename="../plugin.py" line="234"/>
-        <source>Copy feature with the geometry you need to paste first!</source>
-        <translation>Copier l&apos;entité avec la géométrie que vous avez besoin de copier en premier!</translation>
-    </message>
-    <message>
-        <location filename="../plugin.py" line="123"/>
+        <location filename="../geometry_paster_plugin.py" line="129"/>
         <source>Geometry Paster</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="94"/>
+        <location filename="../geometry_paster_plugin.py" line="98"/>
         <source>About plugin…</source>
         <translation>À propos du plugin…</translation>
+    </message>
+    <message>
+        <location filename="../geometry_paster_plugin.py" line="194"/>
+        <source>Paste geometry</source>
+        <translation>Coller la géométrie</translation>
+    </message>
+    <message>
+        <location filename="../geometry_paster_plugin.py" line="148"/>
+        <source>Fail to paste. Multiple features in the clipboard.</source>
+        <translation>Impossible de coller. Plusieurs entités copiées dans le presse-papier.</translation>
+    </message>
+    <message>
+        <location filename="../geometry_paster_plugin.py" line="155"/>
+        <source>Nothing to paste. No features in the clipboard.</source>
+        <translation>Rien à coller. Pas d&apos;entités dans le presse-papier.</translation>
+    </message>
+    <message>
+        <location filename="../geometry_paster_plugin.py" line="168"/>
+        <source>Nowhere to paste. No target feature selected.</source>
+        <translation>Nulle part où coller. Pas d&apos;entité cible sélectionnée.</translation>
+    </message>
+    <message>
+        <location filename="../geometry_paster_plugin.py" line="176"/>
+        <source>Incompatible geometries. Trying to paste %s to %s</source>
+        <translation>Géométries incompatibles. Vous avez essayé de coller %s dans %s</translation>
+    </message>
+    <message>
+        <location filename="../geometry_paster_plugin.py" line="194"/>
+        <source>Something is wrong. Can&apos;t change geometry.</source>
+        <translation>Il y a un problème. La géométrie ne peut pas être changée.</translation>
+    </message>
+    <message>
+        <location filename="../geometry_paster_plugin.py" line="232"/>
+        <source>Select a target feature!</source>
+        <translation>Sélectionner une entité cible!</translation>
+    </message>
+    <message>
+        <location filename="../geometry_paster_plugin.py" line="235"/>
+        <source>Start editing a vector layer!</source>
+        <translation>Commencez à éditer une couche vecteur!</translation>
+    </message>
+    <message>
+        <location filename="../geometry_paster_plugin.py" line="240"/>
+        <source>Copy feature with the geometry you need to paste first!</source>
+        <translation>Copier l&apos;entité avec la géométrie que vous avez besoin de copier en premier!</translation>
     </message>
 </context>
 </TS>
