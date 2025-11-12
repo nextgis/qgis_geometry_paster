@@ -4,54 +4,59 @@
 <context>
     <name>AboutDialog</name>
     <message>
-        <location filename="../about_dialog.py" line="189"/>
+        <location filename="../about_dialog.py" line="236"/>
         <source>Developers</source>
         <translation>Разработчики</translation>
     </message>
     <message>
-        <location filename="../about_dialog.py" line="190"/>
+        <location filename="../about_dialog.py" line="237"/>
         <source>Homepage</source>
         <translation>Домашняя страница</translation>
     </message>
     <message>
-        <location filename="../about_dialog.py" line="191"/>
+        <location filename="../about_dialog.py" line="239"/>
         <source>Please report bugs at</source>
         <translation>Пожалуйста, сообщайте о багах в</translation>
     </message>
     <message>
-        <location filename="../about_dialog.py" line="194"/>
+        <location filename="../about_dialog.py" line="242"/>
         <source>Video with an overview of the plugin</source>
         <translation>Видео с обзором на плагин</translation>
     </message>
     <message>
-        <location filename="../about_dialog.py" line="195"/>
+        <location filename="../about_dialog.py" line="243"/>
         <source>Other helpful services by NextGIS</source>
         <translation>Другие полезные сервисы от NextGIS</translation>
     </message>
     <message>
-        <location filename="../about_dialog.py" line="196"/>
+        <location filename="../about_dialog.py" line="244"/>
         <source>Convenient up-to-date data extracts for any place in the world</source>
         <translation>Удобная выборка актуальных данных из любой точки мира</translation>
     </message>
     <message>
-        <location filename="../about_dialog.py" line="199"/>
+        <location filename="../about_dialog.py" line="247"/>
         <source>Fully featured Web GIS service</source>
         <translation>Полнофункциональный Веб ГИС-сервис</translation>
     </message>
     <message>
-        <location filename="../about_dialog.py" line="184"/>
+        <location filename="../about_dialog.py" line="231"/>
         <source>REPORT_END</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../about_dialog.py" line="193"/>
+        <location filename="../about_dialog.py" line="241"/>
         <source>bugtracker</source>
         <translation>багтрекер</translation>
     </message>
     <message>
-        <location filename="../about_dialog.py" line="46"/>
+        <location filename="../about_dialog.py" line="92"/>
         <source> by NextGIS</source>
         <translation> от NextGIS</translation>
+    </message>
+    <message>
+        <location filename="../about_dialog.py" line="238"/>
+        <source>User Guide</source>
+        <translation>Руководство пользователя</translation>
     </message>
 </context>
 <context>
@@ -107,66 +112,66 @@ p, li { white-space: pre-wrap; }
     </message>
 </context>
 <context>
-    <name>Plugin</name>
+    <name>GeometryPasterPlugin</name>
     <message>
-        <location filename="../plugin.py" line="243"/>
+        <location filename="../geometry_paster_plugin.py" line="249"/>
         <source>Paste Geometry</source>
         <translation>Вставить геометрию</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="188"/>
-        <source>Paste geometry</source>
-        <translation>Вставить геометрию</translation>
-    </message>
-    <message>
-        <location filename="../plugin.py" line="142"/>
-        <source>Fail to paste. Multiple features in the clipboard.</source>
-        <translation>Ошибка вставки. В буфере несколько объектов.</translation>
-    </message>
-    <message>
-        <location filename="../plugin.py" line="149"/>
-        <source>Nothing to paste. No features in the clipboard.</source>
-        <translation>Нечего вставлять. Буфер пуст.</translation>
-    </message>
-    <message>
-        <location filename="../plugin.py" line="162"/>
-        <source>Nowhere to paste. No target feature selected.</source>
-        <translation>Некуда вставлять. Не выбран ни один объект.</translation>
-    </message>
-    <message>
-        <location filename="../plugin.py" line="170"/>
-        <source>Incompatible geometries. Trying to paste %s to %s</source>
-        <translation>Несовместимые геометрии. Попытка вставки %s в %s</translation>
-    </message>
-    <message>
-        <location filename="../plugin.py" line="188"/>
-        <source>Something is wrong. Can&apos;t change geometry.</source>
-        <translation>Что-то пошло не так. Не удалось изменить геометрию.</translation>
-    </message>
-    <message>
-        <location filename="../plugin.py" line="226"/>
-        <source>Select a target feature!</source>
-        <translation>Выберите целевой объект!</translation>
-    </message>
-    <message>
-        <location filename="../plugin.py" line="229"/>
-        <source>Start editing a vector layer!</source>
-        <translation>Начните редактировать целевой слой!</translation>
-    </message>
-    <message>
-        <location filename="../plugin.py" line="234"/>
-        <source>Copy feature with the geometry you need to paste first!</source>
-        <translation>Сначала скопируйте объект с геометрией которую нужно вставить!</translation>
-    </message>
-    <message>
-        <location filename="../plugin.py" line="123"/>
+        <location filename="../geometry_paster_plugin.py" line="129"/>
         <source>Geometry Paster</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="94"/>
+        <location filename="../geometry_paster_plugin.py" line="98"/>
         <source>About plugin…</source>
         <translation>О плагине…</translation>
+    </message>
+    <message>
+        <location filename="../geometry_paster_plugin.py" line="194"/>
+        <source>Paste geometry</source>
+        <translation>Вставить геометрию</translation>
+    </message>
+    <message>
+        <location filename="../geometry_paster_plugin.py" line="148"/>
+        <source>Fail to paste. Multiple features in the clipboard.</source>
+        <translation>Ошибка вставки. В буфере несколько объектов.</translation>
+    </message>
+    <message>
+        <location filename="../geometry_paster_plugin.py" line="155"/>
+        <source>Nothing to paste. No features in the clipboard.</source>
+        <translation>Нечего вставлять. Буфер пуст.</translation>
+    </message>
+    <message>
+        <location filename="../geometry_paster_plugin.py" line="168"/>
+        <source>Nowhere to paste. No target feature selected.</source>
+        <translation>Некуда вставлять. Не выбран ни один объект.</translation>
+    </message>
+    <message>
+        <location filename="../geometry_paster_plugin.py" line="176"/>
+        <source>Incompatible geometries. Trying to paste %s to %s</source>
+        <translation>Несовместимые геометрии. Попытка вставки %s в %s</translation>
+    </message>
+    <message>
+        <location filename="../geometry_paster_plugin.py" line="194"/>
+        <source>Something is wrong. Can&apos;t change geometry.</source>
+        <translation>Что-то пошло не так. Не удалось изменить геометрию.</translation>
+    </message>
+    <message>
+        <location filename="../geometry_paster_plugin.py" line="232"/>
+        <source>Select a target feature!</source>
+        <translation>Выберите целевой объект!</translation>
+    </message>
+    <message>
+        <location filename="../geometry_paster_plugin.py" line="235"/>
+        <source>Start editing a vector layer!</source>
+        <translation>Начните редактировать целевой слой!</translation>
+    </message>
+    <message>
+        <location filename="../geometry_paster_plugin.py" line="240"/>
+        <source>Copy feature with the geometry you need to paste first!</source>
+        <translation>Сначала скопируйте объект с геометрией которую нужно вставить!</translation>
     </message>
 </context>
 </TS>
