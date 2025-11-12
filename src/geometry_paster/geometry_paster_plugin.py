@@ -23,8 +23,11 @@ from osgeo import gdal, ogr
 from qgis.core import (
     Qgis,
     QgsApplication,
+    QgsCoordinateReferenceSystem,
+    QgsCoordinateTransform,
     QgsGeometry,
     QgsMessageLog,
+    QgsProject,
     QgsSettings,
     QgsVectorLayer,
 )
@@ -95,7 +98,7 @@ class GeometryPasterPlugin(QGISPluginBase):
         self.action_about = QAction(
             QgsApplication.getThemeIcon("mActionPropertiesWidget.svg"),
             self.tr("About plugin…"),
-            self.iface.mainWindow()
+            self.iface.mainWindow(),
         )
         self.action_about.triggered.connect(self.__open_about_dialog)
         self.iface.addPluginToMenu(
@@ -293,6 +296,15 @@ class GeometryPasterPlugin(QGISPluginBase):
         return result
 
     def __parse_geojson(self, content: str) -> List[QgsGeometry]:
+        """
+        Parse geometries from a GeoJSON string.
+
+        :param content: GeoJSON data as a string.
+        :type content: str
+
+        :return: List of parsed QgsGeometry objects.
+        :rtype: List[QgsGeometry]
+        """
         driver: gdal.Driver = ogr.GetDriverByName("GeoJSON")
         datasource: gdal.Dataset = driver.Open(content)
         if datasource is None:
@@ -304,9 +316,22 @@ class GeometryPasterPlugin(QGISPluginBase):
 
         result: List[QgsGeometry] = []
 
+        source_crs = QgsCoordinateReferenceSystem("EPSG:4326")
+
+        active_layer = self.iface.activeLayer()
+        if active_layer:
+            target_crs = active_layer.crs()
+        else:
+            target_crs = QgsProject.instance().crs()
+
+        transform = QgsCoordinateTransform(
+            source_crs, target_crs, QgsProject.instance()
+        )
+
         for feature in layer:
             wkt_content = feature.GetGeometryRef().ExportToWkt()
             geometry = QgsGeometry.fromWkt(wkt_content)
+            geometry.transform(transform)
             result.append(geometry)
 
         return result
